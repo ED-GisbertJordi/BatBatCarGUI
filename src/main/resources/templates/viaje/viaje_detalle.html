@@ -1,1 +1,76 @@
-<!-- Vista para el detalle de un viaje -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${'Detalles Viaje '+viaje.getCodViaje()}"></title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a id="back" class="btn" href="/">Inicio</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <header>
+                <h1 th:text="${'Detalles Viaje con Codigo: '+viaje.getCodViaje()}"></h1>
+            </header>
+            <form>
+                <article>
+                    <div id="cuerpo">
+                        <div class="registro">
+                            <label for="ruta">Ruta: </label>
+                            <input type="text" id="ruta" th:value="${viaje.getRuta()}" readonly>
+                        </div>
+                        <div class="registro">
+                            <label for="plazas">Plazas Ofertadas: </label>
+                            <input type="number" id="plazas" th:value="${viaje.getPlazasOfertadas()}" readonly>
+                        </div>
+                        <div class="registro">
+                            <label for="propietario">Propietario: </label>
+                            <input type="text" id="propietario" th:value="${viaje.getPropietario()}" readonly>
+                        </div>
+                        <div class="registro">
+                            <label for="precio"> Precio: </label>
+                            <input type="number" id="precio" th:value="${viaje.getPrecio()}" readonly>
+                        </div>
+                        <div class="registro">
+                            <label for="duracion">Duración aproximada (min): </label>
+                            <input type="number" id="duracion" th:value="${viaje.getDuracion()}" readonly>
+                        </div>
+
+                        <div class="registro">
+                            <label for="fecha">Dia de salida: </label>
+                            <input type="date" id="fecha" th:value="${#temporals.format(viaje.getFechaSalida(), 'yyyy-MM-dd')}" readonly>
+                        </div>
+
+                        <div class="registro">
+                            <label for="horas">Hora: </label>
+                            <input type="number" id="horas" th:value="${#temporals.format(viaje.getFechaSalida(), 'HH')}" readonly>
+                            <label for="minutos">Minutos: </label>
+                            <input type="number" id="minutos" th:value="${#temporals.format(viaje.getFechaSalida(), 'mm')}" readonly>
+                        </div>
+
+                    </div>
+                </article>
+
+                <article>
+                    <a href="/" class="btn">Listado Viajes</a>
+                </article>
+
+            </form>
+
+
+        </section>
+
+
+    </main>
+</body>
+
+</html>

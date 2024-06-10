@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
-    <title>Title</title>
+    <title th:text="${titulo}"></title>
 </head>
 <body>
 <div class="header">
@@ -32,8 +32,8 @@
         <td th:text="${#temporals.format(viaje.getFechaSalida(), 'dd-MM-yyyy ''a las'' HH:mm')}"></td>
         <td th:classappend="${(viaje.estaDisponible()) ? 'abierto':'cerrado'}" th:text="${viaje.getEstado()}"></td>
         <td>
-            <span th:if="${viaje.seHanRealizadoReservas}">Sí</span>
-			<span th:unless="${viaje.seHanRealizadoReservas}">No</span>
+            <span th:if="${viaje.estaDisponible()}"><a th:href="@{/viaje/reserva/add(codigo=${viaje.getCodViaje()})}">Reservar</a></span>
+            <span><a th:href="@{/viaje(codigo=${viaje.getCodViaje()})}">Deralles</a></span>
         </td>
     </tr>
 </table>

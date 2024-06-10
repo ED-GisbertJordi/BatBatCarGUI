@@ -14,6 +14,7 @@ import es.batbatcar.v2p4.modelo.dao.interfaces.ViajeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -44,6 +45,39 @@ public class ViajesRepository {
             }
 		}
         return viajes;
+    }
+
+    /** 
+     * Obtiene un viaje por su código
+     * @return
+     */
+    public Viaje findByCod(int codViaje) {
+        
+    	// Se recuperan todos los viajes del DAO de viajes
+    	Set<Viaje> viajes = viajeDAO.findAll();
+        
+        for (Viaje viaje : viajes) {
+        	if (viaje.getCodViaje() == codViaje){
+            	return viaje;
+            }
+		}
+        return null;
+    }
+
+     /** 
+     * Obtiene un listado de viajes por su ruta
+     * @return
+     */
+    public Set<Viaje> findAllByRuta(String ruta) {
+    	// Se recuperan todos los viajes del DAO de viajes
+    	Set<Viaje> viajes = viajeDAO.findAll();
+        Set<Viaje> viajesRuta = new HashSet<>();
+        for (Viaje viaje : viajes) {
+        	if (viaje.getRuta().equals(ruta)){
+            	viajesRuta.add(viaje);
+            }
+		}
+        return viajesRuta;
     }
     
     /**
