@@ -159,8 +159,8 @@ public class ViajesRepository {
     	}
     }
     
-    public int getNextCodReserva() {
-        return this.reservaDAO.findAll().size() + 1;
+    public String getNextCodReserva(Viaje viaje) {
+        return viaje.getCodViaje()+"-"+(this.reservaDAO.findAllByTravel(viaje).size() + 1);
     }
     
     /**

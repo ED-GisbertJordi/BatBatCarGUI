@@ -41,12 +41,12 @@ public class ReservaController {
     @PostMapping("/viaje/reserva/add")
     public String postViajeReservaAdd(@RequestParam Map<String, String> params, Model model, RedirectAttributes redirectAttributes) {
         int codigo = Integer.parseInt(params.get("codigo"));
-        String nombre = params.get("nombre");
+        String nombre = params.get("usuario");
         int plazas = Integer.parseInt(params.get("plazas"));
 
         Viaje viaje = viajesRepository.findByCod(codigo);
         if (viaje != null && viajesRepository.findViajeSiPermiteReserva(codigo, nombre, plazas)) {
-            Reserva reserva = new Reserva(String.valueOf(viajesRepository.getNextCodReserva()), nombre, plazas, viaje);
+            Reserva reserva = new Reserva(viajesRepository.getNextCodReserva(viaje), nombre, plazas, viaje);
             try {
                 viajesRepository.save(reserva);
                 redirectAttributes.addAttribute("mensaje", "Reserva realizada correctamente");
