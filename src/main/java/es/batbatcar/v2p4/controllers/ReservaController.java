@@ -23,6 +23,20 @@ public class ReservaController {
     @Autowired
     private ViajesRepository viajesRepository;
 
+    @GetMapping("/viaje/reserva")
+    public String getViajeReserva(@RequestParam Map<String, String> params, Model model) {
+        String codigo = params.get("codigo");
+        if (codigo != null) {
+            Reserva r = viajesRepository.findReservaByCode(codigo);
+            params.put("codigo", r.getCodigoReserva());
+            params.put("usuario", r.getUsuario());
+            params.put("plazas", String.valueOf(r.getPlazasSolicitadas()));
+            model.addAttribute("reserva", params);
+            return "reserva/reserva_detalle";
+        }
+        return "redirect:/viajes";
+    }
+
 
     @GetMapping("/viaje/reserva/add")
     public String getViajeReservaAdd(@RequestParam Map<String, String> params, Model model) {
@@ -91,7 +105,7 @@ public class ReservaController {
 
         Viaje viaje = viajesRepository.findByCod(codigoViaje);
         if (viaje != null) {
-            Reserva reserva = viajesRepository.findReservaByViaje(codReserva, viaje);
+            Reserva reserva = viajesRepository.findReservaByCode(codReserva);
             if (reserva != null) {
                 try {
                     viajesRepository.remove(reserva);

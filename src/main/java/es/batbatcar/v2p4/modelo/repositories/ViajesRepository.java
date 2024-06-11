@@ -117,8 +117,8 @@ public class ViajesRepository {
      * @param viaje
      * @return
      */
-	public Reserva findReservaByViaje(String codigo, Viaje viaje) {
-		List<Reserva> r = reservaDAO.findAllByTravel(viaje);
+	public Reserva findReservaByCode(String codigo) {
+		Set<Reserva> r = reservaDAO.findAll();
         for (Reserva reserva : r) {
             if (reserva.getCodigoReserva().equals(codigo)) {
                 return reserva;
