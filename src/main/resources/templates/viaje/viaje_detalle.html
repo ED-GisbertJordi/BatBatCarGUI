@@ -63,12 +63,36 @@
                 <article>
                     <a href="/viajes" class="btn">Listado Viajes</a>
                 </article>
-
             </form>
 
 
         </section>
 
+
+        <section>
+            <header>
+                <h1>Reservas</h1>
+            </header>
+            <table class="viajes" border="1px">
+                <tr>
+                    <th>Cod. Reserva</th>
+                    <th>Usuario</th>
+                    <th>Plazas Solicitadas</th>
+                    <th>Fecha y hora de salida</th>
+                    <th>Acciones</th>
+                </tr>
+                <tr th:each="reserva: ${reservas}">
+                    <td th:text="${reserva.codigoReserva}"></td>
+                    <td th:text="${reserva.usuario}"></td>
+                    <td th:text="${reserva.plazasSolicitadas}"></td>
+                    <td th:text="${#temporals.format(reserva.getFechaRealizacion(), 'dd-MM-yyyy ''a las'' HH:mm')}"></td>
+                    <td>
+                        <span><a href="/">Deralles</a></span>
+                        <span><a href="/">Cancelar</a></span>
+                    </td>
+                </tr>
+            </table>
+        </section>
 
     </main>
 </body>

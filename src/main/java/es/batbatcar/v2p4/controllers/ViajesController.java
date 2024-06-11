@@ -29,6 +29,8 @@ public class ViajesController {
             return "redirect:/viajes";
         }
         model.addAttribute("viaje", viajesRepository.findByCod(Integer.parseInt(params.get("codigo"))));
+        model.addAttribute("reservas", viajesRepository.findReservasByViaje(viajesRepository.findByCod(Integer.parseInt(params.get("codigo")))));
+        // model.addAttribute("titulo", "Reservas del viaje " + params.get("codigo"));
         return "viaje/viaje_detalle";
     }
     
