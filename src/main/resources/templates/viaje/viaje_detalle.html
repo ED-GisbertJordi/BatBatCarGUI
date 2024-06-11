@@ -88,7 +88,11 @@
                     <td th:text="${#temporals.format(reserva.getFechaRealizacion(), 'dd-MM-yyyy ''a las'' HH:mm')}"></td>
                     <td>
                         <span><a href="/">Deralles</a></span>
-                        <span><a href="/">Cancelar</a></span>
+                        <form action="/viaje/reserva/remove" method="post">
+                            <input type="hidden" name="codigo" th:value="${reserva.codigoReserva}">
+                            <input type="hidden" name="codViaje" th:value="${viaje.getCodViaje()}">
+                            <button type="submit">Cancelar</button>
+                        </form>
                     </td>
                 </tr>
             </table>

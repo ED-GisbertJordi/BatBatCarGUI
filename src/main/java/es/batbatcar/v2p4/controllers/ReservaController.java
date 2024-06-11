@@ -82,5 +82,33 @@ public class ReservaController {
         }
         return "reserva/listado";
     }
+
+
+    @PostMapping("/viaje/reserva/remove")
+    public String postViajeReservaRemove(@RequestParam Map<String, String> params, Model model, RedirectAttributes redirectAttributes) {
+        int codigoViaje = Integer.parseInt(params.get("codViaje"));
+        String codReserva = params.get("codigo");
+
+        Viaje viaje = viajesRepository.findByCod(codigoViaje);
+        if (viaje != null) {
+            Reserva reserva = viajesRepository.findReservaByViaje(codReserva, viaje);
+            if (reserva != null) {
+                try {
+                    viajesRepository.remove(reserva);
+                    redirectAttributes.addAttribute("mensaje", "Reserva eliminada correctamente");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    redirectAttributes.addAttribute("error", "Error al eliminar la reserva, "+ e.getMessage());
+                }
+                
+            }else{
+                redirectAttributes.addAttribute("error", "Error al eliminar la reserva");
+            }
+        }else{
+            redirectAttributes.addAttribute("error", "Error al realizar la reserva");
+        }
+
+        return "redirect:/viajes";
+    }
     
 }

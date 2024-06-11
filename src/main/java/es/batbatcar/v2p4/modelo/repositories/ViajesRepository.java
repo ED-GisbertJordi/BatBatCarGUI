@@ -111,6 +111,21 @@ public class ViajesRepository {
 	public List<Reserva> findReservasByViaje(Viaje viaje) {
 		return reservaDAO.findAllByTravel(viaje);
 	}
+
+    /**
+     * Encuentra la reserva de un @viaje
+     * @param viaje
+     * @return
+     */
+	public Reserva findReservaByViaje(String codigo, Viaje viaje) {
+		List<Reserva> r = reservaDAO.findAllByTravel(viaje);
+        for (Reserva reserva : r) {
+            if (reserva.getCodigoReserva().equals(codigo)) {
+                return reserva;
+            }
+        }
+        return null;
+	}
 	
     /**
      * Se permite hacer la reserva del viaje
