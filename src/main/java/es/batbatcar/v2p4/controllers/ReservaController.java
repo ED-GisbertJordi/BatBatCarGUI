@@ -28,6 +28,7 @@ public class ReservaController {
         String codigo = params.get("codigo");
         if (codigo != null) {
             Reserva r = viajesRepository.findReservaByCode(codigo);
+            params.put("codigoViaje", String.valueOf(r.getViaje().getCodViaje()));
             params.put("codigo", r.getCodigoReserva());
             params.put("usuario", r.getUsuario());
             params.put("plazas", String.valueOf(r.getPlazasSolicitadas()));

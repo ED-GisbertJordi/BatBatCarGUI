@@ -163,7 +163,7 @@ main {
         article{
             display: flex;
             justify-content: center;
-            form{
+            form {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-evenly;

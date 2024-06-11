@@ -19,9 +19,9 @@
     <main>
         <section>
             <header>
+                <h1 th:text="'Viaje: '+ ${reserva.codigoViaje}"></h1>
                 <h1 th:text="'Detalles de Reserva '+ ${reserva.codigo}"></h1>
             </header>
-            <form>
                 <article>
                     <div id="cuerpo">
                         <div class="registro">
@@ -35,10 +35,14 @@
                     </div>
                 </article>
                 <article>
-                    <a href="/viajes" class="btn">Atras</a>
+                    <form action="/viaje" method="get">
+                        <input type="hidden" name="codigo" th:value="${reserva.codigoViaje}">
+                        <button type="submit" class="btn">Atras</button>
+                    </form>
+
+
                 </article>
 
-            </form>
 
 
         </section>
