@@ -23,6 +23,7 @@
         <th>Propietario</th>
         <th>Fecha y hora de salida</th>
         <th>Estado</th>
+        <th>Aciones</th>
         <th>Reservas</th>
     </tr>
     <tr th:each="viaje: ${viajes}">
@@ -31,6 +32,16 @@
         <td th:text="${viaje.getPropietario()}"></td>
         <td th:text="${#temporals.format(viaje.getFechaSalida(), 'dd-MM-yyyy ''a las'' HH:mm')}"></td>
         <td th:classappend="${(viaje.estaDisponible()) ? 'abierto':'cerrado'}" th:text="${viaje.getEstado()}"></td>
+        <td>
+            <form th:if="${viaje.isCancelado()}" action="/viaje/abrir" method="post">
+                <input type="hidden" name="codigo" th:value="${viaje.getCodViaje()}">
+                <button type="submit">Abrir</button>
+            </form>
+            <form th:unless="${viaje.isCancelado()}" action="/viaje/cancelar" method="post">
+                <input type="hidden" name="codigo" th:value="${viaje.getCodViaje()}">
+                <button type="submit">Cancelar</button>
+            </form>
+        </td>
         <td>
             <span th:if="${viaje.estaDisponible()}"><a th:href="@{/viaje/reserva/add(codigo=${viaje.getCodViaje()})}">Reservar</a></span>
             <span><a th:href="@{/viaje(codigo=${viaje.getCodViaje()})}">Deralles</a></span>

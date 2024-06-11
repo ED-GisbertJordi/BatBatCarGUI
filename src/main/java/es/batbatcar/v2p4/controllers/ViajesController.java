@@ -1,6 +1,7 @@
 package es.batbatcar.v2p4.controllers;
 
 import es.batbatcar.v2p4.modelo.dto.Reserva;
+import es.batbatcar.v2p4.modelo.dto.viaje.EstadoViaje;
 import es.batbatcar.v2p4.modelo.dto.viaje.Viaje;
 import es.batbatcar.v2p4.modelo.repositories.ViajesRepository;
 import es.batbatcar.v2p4.utils.Validator;
@@ -73,6 +74,21 @@ public class ViajesController {
             }
         }
         redirectAttributes.addAttribute("error", "Error en los datos introducidos");
+        return "redirect:/viaje/add";
+    }
+
+    @PostMapping("/viaje/cancelar")
+    public String postViajeRemove(@RequestParam Map<String, String> params, Model model, RedirectAttributes redirectAttributes) {
+        int codigo = Integer.parseInt(params.get("codigo"));
+        
+            try {
+                viajesRepository.findByCod(codigo).cancelar();
+                return "redirect:/viajes";
+            } catch (Exception e) {
+                e.printStackTrace();
+                redirectAttributes.addAttribute("error", "Error en los datos introducidos"+ e.getMessage());
+
+            }
         return "redirect:/viaje/add";
     }
 
