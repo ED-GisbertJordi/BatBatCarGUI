@@ -4,6 +4,7 @@ import es.batbatcar.v2p4.modelo.dto.viaje.Viaje;
 import es.batbatcar.v2p4.modelo.repositories.ViajesRepository;
 import es.batbatcar.v2p4.utils.Validator;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ViajesController {
@@ -32,15 +34,15 @@ public class ViajesController {
     
     @GetMapping("/viaje/add")
     public String getViajeAdd(@RequestParam Map<String, String> params, Model model) {
-        if (params.get("error") == null) {
-			params.put("error", "");
+        if (params.get("error") != null) {
+			model.addAttribute("error", params.get("error"));
 		}
         model.addAttribute("viaje", params);
         return "viaje/viaje_form";
     }
 
     @PostMapping("/viaje/add")
-    public String postViajeAdd(@RequestParam Map<String, String> params, Model model) {
+    public String postViajeAdd(@RequestParam Map<String, String> params, Model model, RedirectAttributes redirectAttributes) {
         model.addAttribute("viajes", viajesRepository.findAll());
         model.addAttribute("titulo", "Listado de viajes");
 
@@ -57,12 +59,13 @@ public class ViajesController {
         if (Validator.isValidRuta(ruta) && Validator.isValidPlazas(plazas) && Validator.isValidPropietario(propietario) && Validator.isValidPrecio(precio) && Validator.isValidDuracion(duracion) && Validator.isValidFecha(fecha, horas, minutos)){
             try {
                 viajesRepository.save(new Viaje(viajesRepository.getNextCodViaje(), propietario, ruta, fechaSalida, duracion, (float) precio, plazas));
-                return "viaje/listado";
+                redirectAttributes.addAttribute("mensaje", "Viaje añadido correctamente");
+                return "redirect:/viajes";
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        model.addAttribute("error", "Error en los datos introducidos");
+        redirectAttributes.addAttribute("error", "Error en los datos introducidos");
         return "redirect:/viaje/add";
     }
 
@@ -82,6 +85,9 @@ public class ViajesController {
             for (Viaje viaje : viajes) {
                 model.addAttribute("viajes", viaje);
             }
+        }
+        if (param.get("mensaje") != null) {
+            model.addAttribute("mensaje", param.get("mensaje"));
         }
         return "viaje/listado";
     }

@@ -1,3 +1,11 @@
+:root{
+    --principal: #333;
+    --secundario: #474747;
+    --texto: rgb(244, 244, 244);
+    --correcto: rgb(0, 150, 192);
+    --correcto-secundario: rgb(3, 100, 127);
+}
+
 html {
     font-family: Arial, monospace
 }
@@ -105,4 +113,40 @@ table.viajes tr:nth-child(2n) {
     margin: 2px;
     padding: 2px;
     font-size: 12px;
+}
+
+#btnSucces{
+    font-size: 25px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    color: var(--correcto);
+    background-color: var(--correcto-secundario);
+    box-shadow: inset 0px 0px 10px 1px;
+    border: none;
+    transition: all 0.4s;
+}
+
+#btnSucces:hover{
+    color: var(--correcto-secundario);
+    background-color: var(--correcto);
+    box-shadow: inset 0px 0px 10px 5px var(--correcto-secundario);
+}
+
+.oculto{
+    display: none;
+}
+
+.alertaSuccses{
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 30%;
+    transform: translate(45%);
+    background-color: var(--correcto);
+    border-radius: 15px;
+    color: var(--texto);
+    box-shadow: 8px 8px 20px 0px var(--correcto-secundario);
+    text-align: justify;
+    padding: 10px;
 }

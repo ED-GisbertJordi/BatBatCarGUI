@@ -75,9 +75,9 @@
 
     </main>
 
-    <div th:classappend="${viaje.error!=''} ? 'alertaError' : 'alertaError oculto'" id="formError">
+    <div th:if="${error}" class="alertaError" id="formError">
         <input type="button" value="X" id="btnError">
-        <p th:text="${viaje.error}"></p>
+        <p th:text="${error}"></p>
     </div> 
     <script>
         document.getElementById("btnError").addEventListener("click", function() {
