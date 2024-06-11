@@ -113,6 +113,8 @@ main {
     align-items: center;
 
     section {
+        display: flex;
+        flex-direction: column;
         background-color: var(--secundario);
         width: 60%;
         min-width: 350px;
@@ -176,6 +178,9 @@ main {
                 margin-top: 10px;
                 width: 95%;
             }
+        }
+        table{
+            font-size: 18px;
         }
 
 
