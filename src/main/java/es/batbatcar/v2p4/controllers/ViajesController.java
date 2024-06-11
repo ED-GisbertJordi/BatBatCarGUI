@@ -1,5 +1,6 @@
 package es.batbatcar.v2p4.controllers;
 
+import es.batbatcar.v2p4.modelo.dto.Reserva;
 import es.batbatcar.v2p4.modelo.dto.viaje.Viaje;
 import es.batbatcar.v2p4.modelo.repositories.ViajesRepository;
 import es.batbatcar.v2p4.utils.Validator;
@@ -8,6 +9,7 @@ import java.lang.ProcessBuilder.Redirect;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,7 +31,10 @@ public class ViajesController {
             return "redirect:/viajes";
         }
         model.addAttribute("viaje", viajesRepository.findByCod(Integer.parseInt(params.get("codigo"))));
-        model.addAttribute("reservas", viajesRepository.findReservasByViaje(viajesRepository.findByCod(Integer.parseInt(params.get("codigo")))));
+        List<Reserva> reservas = viajesRepository.findReservasByViaje(viajesRepository.findByCod(Integer.parseInt(params.get("codigo"))));
+        if (reservas.size() > 0) {
+            model.addAttribute("reservas", reservas);
+        }
         // model.addAttribute("titulo", "Reservas del viaje " + params.get("codigo"));
         return "viaje/viaje_detalle";
     }

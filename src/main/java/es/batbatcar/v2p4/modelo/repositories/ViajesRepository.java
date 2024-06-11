@@ -124,14 +124,23 @@ public class ViajesRepository {
         List<Reserva> reservas = this.findReservasByViaje(viaje);
         for (Reserva reserva : reservas) {
             if (reserva.getUsuario().equals(usuario)) {
+                
                 return false;
             }
         }
-        if (!viaje.getPropietario().equals(usuario)) {
+        if (viaje.getPropietario().equals(usuario)) {
+            return false;            
+        }
+
+        if (!viaje.estaDisponible()) {
+            return false;            
+        }
+
+        if (viaje.isCancelado()) {
             return false;            
         }
         
-        return (viaje.estaDisponible() && !viaje.isCancelado() && (plazas + reservaDAO.getNumPlazasReservadasEnViaje(viaje)) <= viaje.getPlazasOfertadas());
+        return ((plazas + reservaDAO.getNumPlazasReservadasEnViaje(viaje)) <= viaje.getPlazasOfertadas());
     }
 
 

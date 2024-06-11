@@ -45,6 +45,8 @@ public class ReservaController {
         int plazas = Integer.parseInt(params.get("plazas"));
 
         Viaje viaje = viajesRepository.findByCod(codigo);
+        System.out.println(viajesRepository.findViajeSiPermiteReserva(codigo, nombre, plazas));
+        
         if (viaje != null && viajesRepository.findViajeSiPermiteReserva(codigo, nombre, plazas)) {
             Reserva reserva = new Reserva(String.valueOf(viajesRepository.getNextCodReserva()), nombre, plazas, viaje);
             try {
