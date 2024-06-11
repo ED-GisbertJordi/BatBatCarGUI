@@ -41,11 +41,24 @@
 <div th:if="${mensaje}" class="alertaSuccses" id="formSucces">
     <input type="button" value="X" id="btnSucces">
     <p th:text="${mensaje}"></p>
-</div> 
+</div>
+<div th:if="${error}" class="alertaError" id="formError">
+    <input type="button" value="X" id="btnError">
+    <p th:text="${error}"></p>
+</div>
+
+
 <script th:if="${mensaje}">
     document.getElementById("btnSucces").addEventListener("click", function() {
         document.getElementById("formSucces").classList.add("oculto");
     });
 </script>
+
+<script th:if="${error}">
+    document.getElementById("btnError").addEventListener("click", function() {
+        document.getElementById("formError").classList.add("oculto");
+    });
+</script>
+
 </body>
 </html>

@@ -89,6 +89,9 @@ public class ViajesController {
         if (param.get("mensaje") != null) {
             model.addAttribute("mensaje", param.get("mensaje"));
         }
+        if (param.get("error") != null) {
+            model.addAttribute("error", param.get("error"));
+        }
         return "viaje/listado";
     }
 }

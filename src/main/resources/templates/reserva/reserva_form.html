@@ -21,12 +21,13 @@
             <header>
                 <h1>Formulario de Viaje</h1>
             </header>
-            <form action="/viaje/reserva/add" method="post">
+            <form action="/viaje/reserva/add" method="post" >
+                <input type="hidden" name="codigo" th:value="${codigo}">
                 <article>
                     <div id="cuerpo">
                         <div class="registro">
                             <label for="usuario">Usuario: </label>
-                            <input type="text" id="usuario" name="usuario" placeholder="Ciudad_Inicio-Ciudad_Fin" required>
+                            <input type="text" id="usuario" name="usuario" placeholder="Alex Perez" required>
                         </div>
                         <div class="registro">
                             <label for="plazas">Plazas Solicitadas: </label>
@@ -39,7 +40,7 @@
                 <button class="btn" type="submit">Enviar</button>
                 <article>
                     <button class="btn btnParalelo" type="reset">Limpiar</button>
-                    <a href="/" class="btn btnParalelo">Cancelar</a>
+                    <a href="/viajes" class="btn btnParalelo">Cancelar</a>
                 </article>
 
             </form>

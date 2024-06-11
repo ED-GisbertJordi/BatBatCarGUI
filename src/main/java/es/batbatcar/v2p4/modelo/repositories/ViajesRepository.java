@@ -112,6 +112,29 @@ public class ViajesRepository {
 		return reservaDAO.findAllByTravel(viaje);
 	}
 	
+    /**
+     * Se permite hacer la reserva del viaje
+     * @param codViaje
+     * @param usuario
+     * @param plazas
+     * @return
+     */
+    public boolean findViajeSiPermiteReserva(int codViaje, String usuario, int plazas) {
+        Viaje viaje = this.findByCod(codViaje);
+        List<Reserva> reservas = this.findReservasByViaje(viaje);
+        for (Reserva reserva : reservas) {
+            if (reserva.getUsuario().equals(usuario)) {
+                return false;
+            }
+        }
+        if (!viaje.getPropietario().equals(usuario)) {
+            return false;            
+        }
+        
+        return (viaje.estaDisponible() && !viaje.isCancelado() && (plazas + reservaDAO.getNumPlazasReservadasEnViaje(viaje)) <= viaje.getPlazasOfertadas());
+    }
+
+
 	/**
 	 * Guarda la reserva
 	 * @param reserva
@@ -125,6 +148,10 @@ public class ViajesRepository {
     	} else {
     		reservaDAO.update(reserva);
     	}
+    }
+    
+    public int getNextCodReserva() {
+        return this.reservaDAO.findAll().size() + 1;
     }
     
     /**

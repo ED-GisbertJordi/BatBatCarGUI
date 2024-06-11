@@ -121,6 +121,8 @@ public class InMemoryReservaDAO implements ReservaDAO {
 		if (!this.reservas.add(reserva)) {
 			throw new ReservaAlreadyExistsException(reserva);
 		}
+		System.out.println("Reserva añadida");
+		
 	}
 
 	@Override

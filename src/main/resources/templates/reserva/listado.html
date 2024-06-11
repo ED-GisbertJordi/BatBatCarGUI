@@ -1,1 +1,57 @@
-<!-- Vista para el listado de reservas de un viaje -->
+<!-- Vista principal: Listado de viajes -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css">
+    <title th:text="${titulo}"></title>
+</head>
+<body>
+<div class="header">
+    <img class="icon" src="/images/batbatcar.png">
+    <p class="app-name">Aplicación Bat Bat Car v2</p>
+</div>
+<div class="section">
+    <h3><strong>Listado de Reservas</strong></h3>
+</div>
+<table class="viajes">
+    <tr>
+        <th>Cod. Reserva</th>
+        <th>Usuario</th>
+        <th>Plazas Solicitadas</th>
+        <th>Fecha y hora de salida</th>
+    </tr>
+    <tr th:each="reserva: ${reservas}">
+        <td th:text="${reserva.codigoReserva}"></td>
+        <td th:text="${reserva.usuario}"></td>
+        <td th:text="${reserva.plazasSolicitadas}"></td>
+        <td th:text="${#temporals.format(reserva.getFechaRealizacion(), 'dd-MM-yyyy ''a las'' HH:mm')}"></td>
+    </tr>
+</table>
+
+<div th:if="${mensaje}" class="alertaSuccses" id="formSucces">
+    <input type="button" value="X" id="btnSucces">
+    <p th:text="${mensaje}"></p>
+</div>
+<div th:if="${error}" class="alertaError" id="formError">
+    <input type="button" value="X" id="btnError">
+    <p th:text="${error}"></p>
+</div>
+
+
+<script th:if="${mensaje}">
+    document.getElementById("btnSucces").addEventListener("click", function() {
+        document.getElementById("formSucces").classList.add("oculto");
+    });
+</script>
+
+<script th:if="${error}">
+    document.getElementById("btnError").addEventListener("click", function() {
+        document.getElementById("formError").classList.add("oculto");
+    });
+</script>
+
+</body>
+</html>

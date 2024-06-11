@@ -4,6 +4,8 @@
     --texto: rgb(244, 244, 244);
     --correcto: rgb(0, 150, 192);
     --correcto-secundario: rgb(3, 100, 127);
+    --error: rgb(250, 41, 41);
+    --error-secundario: rgb(164, 30, 30);
 }
 
 html {
@@ -131,6 +133,38 @@ table.viajes tr:nth-child(2n) {
     color: var(--correcto-secundario);
     background-color: var(--correcto);
     box-shadow: inset 0px 0px 10px 5px var(--correcto-secundario);
+}
+
+#btnError{
+    font-size: 25px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    color: var(--error);
+    background-color: var(--error-secundario);
+    box-shadow: inset 0px 0px 10px 1px;
+    border: none;
+    transition: all 0.4s;
+}
+
+#btnError:hover{
+    color: var(--error-secundario);
+    background-color: var(--error);
+    box-shadow: inset 0px 0px 10px 5px var(--error-secundario);
+}
+
+.alertaError{
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 30%;
+    transform: translate(45%);
+    background-color: var(--error);
+    border-radius: 15px;
+    color: var(--texto);
+    box-shadow: 8px 8px 20px 0px var(--error-secundario);
+    text-align: justify;
+    padding: 10px;
 }
 
 .oculto{
