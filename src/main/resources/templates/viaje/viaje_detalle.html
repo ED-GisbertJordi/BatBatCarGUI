@@ -83,7 +83,7 @@
                 </tr>
                 <tr th:each="reserva: ${reservas}">
                     <td th:text="${reserva.codigoReserva}"></td>
-                    <td th:text="${reserva.usuario}"></td>
+                    <td th:text="${reserva.getUsuario()}"></td>
                     <td th:text="${reserva.plazasSolicitadas}"></td>
                     <td th:text="${#temporals.format(reserva.getFechaRealizacion(), 'dd-MM-yyyy ''a las'' HH:mm')}"></td>
                     <td>
