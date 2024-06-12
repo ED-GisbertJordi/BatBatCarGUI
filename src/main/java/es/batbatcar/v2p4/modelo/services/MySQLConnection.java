@@ -22,10 +22,10 @@ public class MySQLConnection {
 
 	   // Modifica estos datos para que se adapte a tu desarrollo
 	   
-       this.ip = "127.0.0.1";
+       this.ip = "192.168.1.135";
        this.database = "batbatcar";
-       this.userName = "rhidalgo-web";
-       this.password = "123456789";
+       this.userName = "adminU";
+       this.password = "1234";
    }
    
    public Connection getConnection() {
