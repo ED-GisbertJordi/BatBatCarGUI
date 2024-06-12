@@ -3,6 +3,7 @@ package es.batbatcar.v2p4.modelo.repositories;
 import es.batbatcar.v2p4.exceptions.ReservaAlreadyExistsException;
 import es.batbatcar.v2p4.exceptions.ReservaNotFoundException;
 import es.batbatcar.v2p4.exceptions.ViajeAlreadyExistsException;
+import es.batbatcar.v2p4.exceptions.ViajeNotCancelableException;
 import es.batbatcar.v2p4.exceptions.ViajeNotFoundException;
 import es.batbatcar.v2p4.modelo.dao.inmemorydao.InMemoryReservaDAO;
 import es.batbatcar.v2p4.modelo.dao.inmemorydao.InMemoryViajeDAO;
@@ -10,6 +11,8 @@ import es.batbatcar.v2p4.modelo.dto.Reserva;
 import es.batbatcar.v2p4.modelo.dto.viaje.Viaje;
 import es.batbatcar.v2p4.modelo.dao.interfaces.ReservaDAO;
 import es.batbatcar.v2p4.modelo.dao.interfaces.ViajeDAO;
+import es.batbatcar.v2p4.modelo.dao.sqldao.SQLReservaDAO;
+import es.batbatcar.v2p4.modelo.dao.sqldao.SQLViajeDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,11 +27,14 @@ public class ViajesRepository {
     private final ViajeDAO viajeDAO;
     private final ReservaDAO reservaDAO;
 
-    public ViajesRepository(@Autowired InMemoryViajeDAO viajeDAO, @Autowired InMemoryReservaDAO reservaDAO) {
+    // public ViajesRepository(@Autowired InMemoryViajeDAO viajeDAO, @Autowired InMemoryReservaDAO reservaDAO) {
+    //     this.viajeDAO = viajeDAO;
+    //     this.reservaDAO = reservaDAO;
+    // }
+    public ViajesRepository(@Autowired SQLViajeDAO viajeDAO, @Autowired SQLReservaDAO reservaDAO) {
         this.viajeDAO = viajeDAO;
         this.reservaDAO = reservaDAO;
     }
-    
     /** 
      * Obtiene un conjunto de todos los viajes
      * @return
@@ -86,6 +92,14 @@ public class ViajesRepository {
      */
     public int getNextCodViaje() {
         return this.viajeDAO.findAll().size() + 1;
+    }
+
+    public void cancelarViaje(int codViaje) throws ViajeNotCancelableException, ViajeNotFoundException {
+        Viaje viaje = this.findByCod(codViaje);
+        if (viaje!=null) {
+            viaje.cancelar();
+            viajeDAO.update(viaje);   
+        }
     }
     
     /**

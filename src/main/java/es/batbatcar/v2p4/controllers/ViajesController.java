@@ -82,7 +82,8 @@ public class ViajesController {
         int codigo = Integer.parseInt(params.get("codigo"));
         
             try {
-                viajesRepository.findByCod(codigo).cancelar();
+                viajesRepository.cancelarViaje(codigo);
+
                 return "redirect:/viajes";
             } catch (Exception e) {
                 e.printStackTrace();
